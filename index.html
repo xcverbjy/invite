@@ -5,68 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>배진영 ♥ 김소은 | 결혼합니다</title>
   
-  <!-- Open Graph for KakaoTalk preview -->
   <meta property="og:title" content="배진영 ♥ 김소은 결혼합니다">
   <meta property="og:description" content="2026년 12월 13일 오전 11시 30분 | 반월정">
   <meta property="og:image" content="https://xcverbjy.github.io/invite.io/invitation-main.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="1800">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://xcverbjy.github.io/invite.io/">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background: #f8f5f0;
       font-family: -apple-system, BlinkMacSystemFont, "Noto Sans KR", sans-serif;
       display: flex;
       justify-content: center;
-      min-height: 100vh;
     }
     .invitation {
       position: relative;
       max-width: 480px;
       width: 100%;
-      margin: 0 auto;
     }
     .invitation img {
       width: 100%;
       height: auto;
       display: block;
     }
-    /* Overlay buttons positioned over the image buttons */
-    .btn-overlay {
+    .btn-group {
       position: absolute;
-      bottom: 2%;
-      height: 9%;
-      border-radius: 50px;
+      bottom: 3.2%;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 0 8%;
+      z-index: 10;
+    }
+    .btn {
+      flex: 1;
+      max-width: 160px;
+      height: 42px;
+      background: rgba(255, 252, 248, 0.92);
+      border: 1px solid #e8e0d4;
+      border-radius: 24px;
+      font-size: 13px;
+      color: #5a5248;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
       cursor: pointer;
-      background: rgba(255, 255, 255, 0.01); /* almost invisible but helps touch on iOS */
-      border: none;
-      z-index: 20;
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     }
-    .btn-directions {
-      left: 8%;
-      width: 40%;
-    }
-    .btn-share {
-      right: 8%;
-      width: 40%;
-    }
-    /* Fallback visible buttons if needed */
-    .fallback-buttons {
-      display: none;
-    }
-    @media (max-width: 480px) {
-      .invitation {
-        max-width: 100%;
-      }
+    .btn:active {
+      background: rgba(245, 240, 232, 0.95);
     }
   </style>
 </head>
@@ -74,17 +66,20 @@
   <div class="invitation">
     <img src="invitation-main.jpg" alt="배진영 ♥ 김소은 모바일 청첩장">
     
-    <!-- Clickable areas over the buttons in the image -->
-    <button class="btn-overlay btn-directions" onclick="openDirections()" aria-label="오시는 길"></button>
-    <button class="btn-overlay btn-share" onclick="shareInvitation()" aria-label="공유하기"></button>
+    <div class="btn-group">
+      <button class="btn" onclick="openDirections()">
+        <span>📍</span> 오시는 길
+      </button>
+      <button class="btn" onclick="shareInvitation()">
+        <span>↗</span> 공유하기
+      </button>
+    </div>
   </div>
 
   <script>
     function openDirections() {
-      // Naver Map directions to 반월정
       const dest = encodeURIComponent("대구 중구 반월정");
-      const url = `https://map.naver.com/v5/directions/-/-/${dest}`;
-      window.location.href = url;
+      window.location.href = `https://map.naver.com/v5/directions/-/-/${dest}`;
     }
 
     function shareInvitation() {
@@ -92,32 +87,23 @@
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(url).then(() => {
           alert('청첩장 링크가 복사되었습니다.\n카카오톡에서 붙여넣기 해주세요.');
-          // Try to open KakaoTalk
-          setTimeout(() => {
-            window.location.href = 'kakaotalk://';
-          }, 300);
-        }).catch(() => {
-          fallbackShare(url);
-        });
+          setTimeout(() => { window.location.href = 'kakaotalk://'; }, 200);
+        }).catch(fallbackShare);
       } else {
-        fallbackShare(url);
+        fallbackShare();
       }
     }
 
-    function fallbackShare(url) {
-      // Fallback for older browsers
+    function fallbackShare() {
+      const url = window.location.href;
       const textarea = document.createElement('textarea');
       textarea.value = url;
       document.body.appendChild(textarea);
       textarea.select();
-      try {
-        document.execCommand('copy');
-        alert('청첩장 링크가 복사되었습니다.\n카카오톡에서 붙여넣기 해주세요.');
-        window.location.href = 'kakaotalk://';
-      } catch (err) {
-        alert('링크 복사에 실패했습니다. 주소를 직접 복사해주세요:\n' + url);
-      }
+      document.execCommand('copy');
       document.body.removeChild(textarea);
+      alert('청첩장 링크가 복사되었습니다.\n카카오톡에서 붙여넣기 해주세요.');
+      window.location.href = 'kakaotalk://';
     }
   </script>
 </body>
