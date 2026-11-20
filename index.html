@@ -78,8 +78,9 @@
 
   <script>
     function openDirections() {
-      const dest = encodeURIComponent("대구 중구 반월정");
-      window.location.href = `https://map.naver.com/v5/directions/-/-/${dest}`;
+      // 안정적인 네이버 지도 검색 + 길찾기 링크
+      const url = "https://map.naver.com/v5/search/대구%20중구%20반월정";
+      window.location.href = url;
     }
 
     function shareInvitation() {
