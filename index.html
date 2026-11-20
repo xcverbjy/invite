@@ -41,20 +41,21 @@
     /* Overlay buttons positioned over the image buttons */
     .btn-overlay {
       position: absolute;
-      bottom: 4.5%;
-      height: 5.5%;
-      border-radius: 30px;
+      bottom: 3%;
+      height: 7%;
+      border-radius: 40px;
       cursor: pointer;
       background: transparent;
       border: none;
+      z-index: 10;
     }
     .btn-directions {
-      left: 18%;
-      width: 30%;
+      left: 12%;
+      width: 36%;
     }
     .btn-share {
-      right: 18%;
-      width: 30%;
+      right: 12%;
+      width: 36%;
     }
     /* Fallback visible buttons if needed */
     .fallback-buttons {
@@ -78,11 +79,10 @@
 
   <script>
     function openDirections() {
-      // Naver Map directions to 반월정 (대구광역시 달구벌대로 2061-2)
-      // Opens with current location as start when possible
+      // Naver Map directions to 반월정
       const dest = encodeURIComponent("대구 중구 반월정");
       const url = `https://map.naver.com/v5/directions/-/-/${dest}`;
-      window.open(url, '_blank');
+      window.location.href = url;
     }
 
     function shareInvitation() {
