@@ -7,7 +7,7 @@
   
   <meta property="og:title" content="배진영 ♥ 김소은 결혼합니다">
   <meta property="og:description" content="2026년 12월 13일 오전 11시 30분 | 반월정">
-  <meta property="og:image" content="https://xcverbjy.github.io/invite/invitation-main.jpg">
+  <meta property="og:image" content="https://xcverbjy.github.io/invite.io/invitation-main.jpg">
   <meta property="og:type" content="website">
 
   <style>
@@ -57,8 +57,34 @@
       touch-action: manipulation;
       box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     }
-    .btn:active {
-      background: rgba(245, 240, 232, 0.95);
+    .btn:active { background: rgba(245, 240, 232, 0.95); }
+
+    /* 로드뷰 영상 오버레이 */
+    .video-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .video-overlay.active { display: flex; }
+    .video-overlay video {
+      width: 90%;
+      max-width: 480px;
+      border-radius: 8px;
+      background: #000;
+    }
+    .close-btn {
+      margin-top: 20px;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 10px 24px;
+      border-radius: 20px;
+      font-size: 14px;
     }
   </style>
 </head>
@@ -79,16 +105,35 @@
     </div>
   </div>
 
+  <!-- 로드뷰 영상 플레이어 -->
+  <div class="video-overlay" id="videoOverlay">
+    <video id="parkingVideo" controls playsinline>
+      <source src="parking.mp4" type="video/mp4">
+      영상을 재생할 수 없습니다.
+    </video>
+    <button class="close-btn" onclick="closeRoadview()">닫기</button>
+  </div>
+
   <script>
     function openDirections() {
-      const url = "https://map.naver.com/v5/search/대구%20중구%20반월정";
-      window.location.href = url;
+      window.location.href = "https://map.naver.com/v5/search/대구%20중구%20반월정";
     }
 
     function openRoadview() {
-      // GitHub Pages에 올린 parking.mp4 연결
-      const videoUrl = "https://xcverbjy.github.io/invite/parking.mp4";
-      window.open(videoUrl, "_blank");
+      const overlay = document.getElementById('videoOverlay');
+      const video = document.getElementById('parkingVideo');
+      overlay.classList.add('active');
+      video.play().catch(() => {
+        // 자동 재생이 막힐 경우 사용자가 직접 재생 버튼을 누르게 함
+      });
+    }
+
+    function closeRoadview() {
+      const overlay = document.getElementById('videoOverlay');
+      const video = document.getElementById('parkingVideo');
+      video.pause();
+      video.currentTime = 0;
+      overlay.classList.remove('active');
     }
 
     function shareInvitation() {
