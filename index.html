@@ -35,23 +35,23 @@
       right: 0;
       display: flex;
       justify-content: center;
-      gap: 12px;
-      padding: 0 8%;
+      gap: 8px;
+      padding: 0 5%;
       z-index: 10;
     }
     .btn {
       flex: 1;
-      max-width: 160px;
-      height: 42px;
+      max-width: 140px;
+      height: 40px;
       background: rgba(255, 252, 248, 0.92);
       border: 1px solid #e8e0d4;
       border-radius: 24px;
-      font-size: 13px;
+      font-size: 12.5px;
       color: #5a5248;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 4px;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
@@ -70,6 +70,9 @@
       <button class="btn" onclick="openDirections()">
         <span>📍</span> 오시는 길
       </button>
+      <button class="btn" onclick="openRoadview()">
+        <span>🎥</span> 로드뷰
+      </button>
       <button class="btn" onclick="shareInvitation()">
         <span>↗</span> 공유하기
       </button>
@@ -78,9 +81,14 @@
 
   <script>
     function openDirections() {
-      // 안정적인 네이버 지도 검색 + 길찾기 링크
       const url = "https://map.naver.com/v5/search/대구%20중구%20반월정";
       window.location.href = url;
+    }
+
+    function openRoadview() {
+      // GitHub Pages에 올린 parking.mp4 연결
+      const videoUrl = "https://xcverbjy.github.io/invite.io/parking.mp4";
+      window.open(videoUrl, "_blank");
     }
 
     function shareInvitation() {
